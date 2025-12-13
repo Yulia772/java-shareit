@@ -13,7 +13,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User save(User user) {
-        if(user.getId() == null) {
+        if (user.getId() == null) {
             countId++;
             user.setId(countId);
         }
@@ -46,7 +46,7 @@ public class UserRepositoryImpl implements UserRepository {
     public  boolean existsByEmail(String email) {
         Collection<User> users = storage.values();
         for (User u : users) {
-            if(Objects.equals(u.getEmail(), email)) {
+            if (Objects.equals(u.getEmail(), email)) {
                 return true;
             }
         }

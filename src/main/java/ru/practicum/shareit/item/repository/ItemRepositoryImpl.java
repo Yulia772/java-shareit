@@ -13,7 +13,7 @@ public class ItemRepositoryImpl implements ItemRepository {
 
     @Override
     public Item save(Item item) {
-        if(item.getId() == null) {
+        if (item.getId() == null) {
             countId++;
             item.setId(countId);
         }

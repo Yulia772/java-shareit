@@ -34,15 +34,15 @@ public class UserServiceImpl implements UserService {
     public UserDto updateUser(Long id, UserDto userDto) {
         User oldUser = getUserOrThrow(id);
         String newName = userDto.getName();
-        if(newName != null) {
+        if (newName != null) {
             oldUser.setName(newName);
         }
 
         String newEmail = userDto.getEmail();
 
-        if(newEmail != null) {
+        if (newEmail != null) {
             String oldEmail = oldUser.getEmail();
-            if(!Objects.equals(oldEmail, newEmail)) {
+            if (!Objects.equals(oldEmail, newEmail)) {
                 validateEmailFormat(newEmail);
                 validateEmailUnique(newEmail);
                 oldUser.setEmail(newEmail);
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private void validateEmailUnique(String email) {
-        if(userRepository.existsByEmail(email)) {
+        if (userRepository.existsByEmail(email)) {
             log.warn("Пользователь с таким email={} уже существует", email);
             throw new EmailAlreadyExistsException("Пользователь с таким email уже существует");
         }
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
 
     private User getUserOrThrow(Long id) {
         User existingUser = userRepository.findById(id);
-        if(existingUser == null) {
+        if (existingUser == null) {
             log.warn("Пользователя с таким id={} не существует", id);
             throw new NotFoundException("Пользователя с таким id не существует");
         }

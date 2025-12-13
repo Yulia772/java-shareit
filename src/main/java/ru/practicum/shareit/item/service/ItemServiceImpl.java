@@ -34,25 +34,25 @@ public class ItemServiceImpl implements ItemService {
     public  ItemDto updateItem(Long userId, Long itemId, ItemDto itemDto) {
         getUserOrThrow(userId);
         Item foundItem = getItemOrThrow(itemId);
-        if(!foundItem.getOwner().getId().equals(userId)) {
+        if (!foundItem.getOwner().getId().equals(userId)) {
             log.warn("Пользователь userId={} не является владельцем этой вещи id={}", userId, foundItem.getOwner().getId());
             throw new NotFoundException("Пользователь не является владельцем этой вещи");
         }
-        if(itemDto.getName() != null) {
-            if(itemDto.getName().isBlank()) {
+        if (itemDto.getName() != null) {
+            if (itemDto.getName().isBlank()) {
                 log.warn("На обновление передано пустое имя");
                 throw new ValidationException("Передано пустое имя");
             }
             foundItem.setName(itemDto.getName());
         }
-        if(itemDto.getDescription() != null) {
+        if (itemDto.getDescription() != null) {
             if (itemDto.getDescription().isBlank()) {
                 log.warn("Передано пустое описание");
                 throw new ValidationException("Передано пустое описание");
             }
             foundItem.setDescription(itemDto.getDescription());
         }
-        if(itemDto.getAvailable() != null) {
+        if (itemDto.getAvailable() != null) {
             foundItem.setAvailable(itemDto.getAvailable());
         }
 
@@ -85,7 +85,7 @@ public class ItemServiceImpl implements ItemService {
 
     private User getUserOrThrow(Long userId) {
         User existsUser = userRepository.findById(userId);
-        if(existsUser == null) {
+        if (existsUser == null) {
             log.warn("Пользователя с таким id={} не существует", userId);
             throw new NotFoundException("Пользователя с таким id не существует");
         }
@@ -94,7 +94,7 @@ public class ItemServiceImpl implements ItemService {
 
     private Item getItemOrThrow(Long itemId) {
         Item item = itemRepository.findById(itemId);
-        if(item == null) {
+        if (item == null) {
             log.warn("Вещь с id={} не найдена", itemId);
             throw new NotFoundException("Вещь не найдена");
         }
