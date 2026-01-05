@@ -1,4 +1,4 @@
-package ru.practicum.shareit.booking.dto;
+/*package ru.practicum.shareit.booking.dto;
 
 import lombok.Data;
 
@@ -15,3 +15,5 @@ public class BookingDto {
     private BookingStatus status;
 
 }
+
+ */
