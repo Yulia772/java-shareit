@@ -18,5 +18,5 @@ public interface BookingService {
 
     List<BookingResponseDto> getBookingByOwner(Long ownerId, BookingState state, int from, int size);
 
-    void validateUserCanComment(Long UserId, Long itemId);
+    void validateUserCanComment(Long userId, Long itemId);
 }

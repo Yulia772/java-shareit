@@ -22,7 +22,7 @@ public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
 
     @Override
-    public CommentDto addComment(Long userId, Long itemId, CommentDto commentDto){
+    public CommentDto addComment(Long userId, Long itemId, CommentDto commentDto) {
         User user = entityFinder.getUserOrThrow(userId);
         Item item = entityFinder.getItemOrThrow(itemId);
 

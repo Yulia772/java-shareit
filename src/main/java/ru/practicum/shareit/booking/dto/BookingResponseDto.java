@@ -18,6 +18,7 @@ public class BookingResponseDto {
     public static class BookerShortDto {
         private Long id;
     }
+
     @Data
     public static class ItemShortDto {
         private Long id;

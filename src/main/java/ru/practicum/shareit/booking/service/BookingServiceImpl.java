@@ -73,7 +73,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingResponseDto getBooking(Long userId, Long bookingId){
+    public BookingResponseDto getBooking(Long userId, Long bookingId) {
         Booking booking = entityFinder.getBookingOrThrow(bookingId);
         Long bookerId = booking.getBooker().getId();
         Long ownerId = booking.getItem().getOwner().getId();
