@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.shareit.comment.dto.CommentDto;
+import ru.practicum.shareit.comment.service.CommentService;
 import ru.practicum.shareit.constants.HeaderConstants;
 import ru.practicum.shareit.item.dto.ItemDto;
+import ru.practicum.shareit.item.dto.ItemWithBookingsDto;
 import ru.practicum.shareit.item.service.ItemService;
 
 import java.util.List;
@@ -15,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ItemController {
     private final ItemService itemService;
+    private final CommentService commentService;
 
     @PostMapping
     public ResponseEntity<ItemDto> createItem(
@@ -27,22 +31,22 @@ public class ItemController {
     @PatchMapping("/{itemId}")
     public ResponseEntity<ItemDto> updateItem(
             @RequestHeader(HeaderConstants.USER_ID) Long userId,
-            @PathVariable("itemId") Long itemId,
+            @PathVariable Long itemId,
             @RequestBody ItemDto itemDto) {
         return ResponseEntity.ok()
                 .body(itemService.updateItem(userId,itemId,itemDto));
     }
 
     @GetMapping("/{itemId}")
-    public ResponseEntity<ItemDto> getItem(
+    public ResponseEntity<ItemWithBookingsDto> getItem(
             @RequestHeader(HeaderConstants.USER_ID) Long userId,
             @PathVariable Long itemId) {
-        return ResponseEntity.ok().body(itemService.getItem(itemId));
+        return ResponseEntity.ok().body(itemService.getItem(userId, itemId));
     }
 
 
     @GetMapping
-    public ResponseEntity<List<ItemDto>> getItemsByOwner(@RequestHeader(HeaderConstants.USER_ID) Long userId) {
+    public ResponseEntity<List<ItemWithBookingsDto>> getItemsByOwner(@RequestHeader(HeaderConstants.USER_ID) Long userId) {
         return ResponseEntity.ok().body(itemService.getItemsByOwner(userId));
     }
 
@@ -52,4 +56,14 @@ public class ItemController {
             @RequestParam("text") String text) {
         return ResponseEntity.ok().body(itemService.searchItems(text));
     }
+
+    @PostMapping("/{itemId}/comment")
+    public ResponseEntity<CommentDto> createComment(
+            @RequestHeader(HeaderConstants.USER_ID) Long userId,
+            @PathVariable Long itemId,
+            @RequestBody CommentDto commentDto) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(commentService.addComment(userId, itemId, commentDto));
+    }
+
 }

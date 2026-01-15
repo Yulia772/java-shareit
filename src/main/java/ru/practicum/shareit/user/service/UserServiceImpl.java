@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
                 oldUser.setEmail(newEmail);
             }
         }
-        User saveUser = userRepository.update(oldUser);
+        User saveUser = userRepository.save(oldUser);
         UserDto updateUserDto = UserMapper.toUserDto(saveUser);
         return updateUserDto;
 
@@ -82,12 +82,11 @@ public class UserServiceImpl implements UserService {
     }
 
     private User getUserOrThrow(Long id) {
-        User existingUser = userRepository.findById(id);
-        if (existingUser == null) {
-            log.warn("Пользователя с таким id={} не существует", id);
-            throw new NotFoundException("Пользователя с таким id не существует");
-        }
-        return existingUser;
+        return userRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.warn("Пользователь с id={} не найден", id);
+                    return new NotFoundException("Пользователя с таким id не существует");
+                });
     }
 
     private void validateEmailFormat(String email) {
