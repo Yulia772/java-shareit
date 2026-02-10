@@ -1,7 +1,6 @@
 package ru.practicum.shareit.booking.service;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +37,7 @@ public class BookingServiceImplTest {
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
     private final EntityManager em;
+
     private record TestData(User owner, User booker, Item item, LocalDateTime now) {
     }
 

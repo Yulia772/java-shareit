@@ -37,8 +37,8 @@ public class ItemRequestController {
     @GetMapping
     public ResponseEntity<List<ItemRequestWithItemsDto>> getUserRequests(
             @RequestHeader(HeaderConstants.USER_ID) Long userId) {
-        return ResponseEntity.ok().
-                body(itemRequestService.getUserRequests(userId));
+        return ResponseEntity.ok()
+                .body(itemRequestService.getUserRequests(userId));
     }
 
 

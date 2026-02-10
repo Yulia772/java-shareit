@@ -43,7 +43,7 @@ public class ItemServiceImpl implements ItemService {
         validateItemForCreate(itemDto);
 
         ItemRequest request = null;
-        if(itemDto.getRequestId() != null) {
+        if (itemDto.getRequestId() != null) {
             request = itemRequestRepository.findById(itemDto.getRequestId())
                     .orElseThrow(() -> new NotFoundException("Запрос вещи не найден"));
         }
